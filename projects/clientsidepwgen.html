@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Password Generator</title>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/bootstrap.bundle.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="js/pwgen.js"></script>
+    <script src="js/sha1.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body class="text-center">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="masthead mb-auto sticky-top">
+            <div class="inner">
+                <h3 class="masthead-brand"><a href="../projects.html">BACK</a></h3>
+            </div>
+        </header>
+        <main role="main" class="inner cover pb-5 pt-5">
+            <h1 class="cover-heading">Client-Side-Password-Generation</h1>
+            <p class="lead">Clicking the button below will generate you a "unique" password. Unique in the sense of that its hash has not been leaked on the internet.</p>
+            <p class="lead">
+                <button type="button" onclick="buttonPress()" class="btn btn-outline-light">Generate Password</button>
+            </p>
+            <p class="text-monospace" id="label1"></p>
+            <button type="button" id="clipButton" onclick="copyToClip()" style="display:none;" class="btn btn-outline-light">Copy to Clipboard</button>
+        </main>
+        <footer class="mastfoot mt-auto">
+            <div class="inner">
+                <p>&copy; <a href="https://github.com/hottek">hottek</a> @ <a href="https://mardybum.de/">mardybum.de</a></p>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>
