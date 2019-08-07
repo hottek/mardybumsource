@@ -10,6 +10,7 @@ function buttonPress() {
         isvalid = checkformatch(jsondata, key);
     }
     document.getElementById("label1").innerHTML = key["clearkey"];
+    $("#clipButton").show();
 }
 
 function shuffle(array) {
@@ -80,4 +81,9 @@ function checkformatch(jsondata, key) {
         }
     }
     return retvalue;
+}
+
+function copyToClip() {
+    var pw = document.getElementById("label1").innerText;
+    window.prompt("Copy to clipboard: Ctrl+C", pw);
 }
