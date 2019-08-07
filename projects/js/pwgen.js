@@ -1,52 +1,50 @@
 function buttonPress() {
-    var key;
-    var isvalid = false;
+    let key;
+    let isvalid = false;
     while (!isvalid) {
-        key = KeyGen();
-        var firstfive = key["hashkey"].slice(0, 5);
-        var geturl = "https://api.pwnedpasswords.com/range/" + firstfive;
-        var data = getData(geturl);
-        var jsondata = handleData(data)
+        key = keyGen();
+        const firstfive = key["hashkey"].slice(0, 5);
+        const geturl = "https://api.pwnedpasswords.com/range/" + firstfive;
+        const data = getData(geturl);
+        const jsondata = handleData(data)
         isvalid = checkformatch(jsondata, key);
     }
-    console.log("pw found: " + key["clearkey"]);
     document.getElementById("label1").innerHTML = key["clearkey"];
-    $("#clipButton").show();
 }
 
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
+    let currentIndex = array.length, temporaryValue, randomIndex;
     while (0 !== currentIndex) {
-
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
-
         temporaryValue = array[currentIndex];
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
 }
 
-function KeyGen() {
-
-    var chars = ["0","1","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","!","_"]
+function keyGen() {
+    let chars = []
+    for (i = 48; i < 58; i++) {chars.push(String.fromCharCode(i));}
+    for (i = 65; i < 91; i++) {chars.push(String.fromCharCode(i));}
+    for (i = 97; i < 122; i++) {chars.push(String.fromCharCode(i));}
+    chars.push(String.fromCharCode(33));
+    chars.push(String.fromCharCode(95));
     chars = shuffle(chars);
-    var key = "";
+    let key = "";
     for (i = 0; i < 24; i++) {
         var rannumber = Math.floor(Math.random() * chars.length);
         key += chars[rannumber]
     }
-    var shaObj = new jsSHA("SHA-1", "TEXT");
+    let shaObj = new jsSHA("SHA-1", "TEXT");
     shaObj.update(key);
-    var hashKey = shaObj.getHash("HEX");
+    let hashKey = shaObj.getHash("HEX");
     return {"clearkey":key,"hashkey":hashKey};
 }
 
 function getData(geturl) {
-    var jsondata = null;
+    let jsondata = null;
     $.ajax({
         type: "GET",
         async: false,
@@ -59,24 +57,22 @@ function getData(geturl) {
 }
 
 function handleData(data) {
-    var splitdata = data.split("\n");
-    var jsondata = [];
+    let splitdata = data.split("\n");
+    let jsondata = [];
     for (i = 0; i < splitdata.length; i++) {
-        var hash = splitdata[i].slice(0,35);
-        var count = splitdata[i].slice(36);
+        let hash = splitdata[i].slice(0,35);
+        let count = splitdata[i].slice(36);
         jsondata.push({hash : hash, count : count});
     }
     return jsondata;
 }
 
 function checkformatch(jsondata, key) {
-    var checkkey = key["hashkey"].slice(5);
-    var retvalue = false;
-    var index;
+    let checkkey = key["hashkey"].slice(5);
+    let retvalue = false;
     for (i = 0; i < jsondata.length; i++) {
         var obj = jsondata[i];
         if (obj.hash === checkkey.toUpperCase()) {
-            index = i;
             retvalue = false;
             console.log("MATCH FOUND AT " + i + "\n occured " + obj.count + " times");
         } else {
@@ -84,9 +80,4 @@ function checkformatch(jsondata, key) {
         }
     }
     return retvalue;
-}
-
-function copyToClip() {
-    var pw = document.getElementById("label1").innerText;
-    window.prompt("Copy to clipboard: Ctrl+C", pw);
 }
