@@ -26,6 +26,7 @@ function shuffle(array) {
 }
 
 function keyGen() {
+    let i;
     let chars = []
     for (i = 48; i < 58; i++) {chars.push(String.fromCharCode(i));}
     for (i = 65; i < 91; i++) {chars.push(String.fromCharCode(i));}
@@ -35,8 +36,8 @@ function keyGen() {
     chars = shuffle(chars);
     let key = "";
     for (i = 0; i < 24; i++) {
-        var rannumber = Math.floor(Math.random() * chars.length);
-        key += chars[rannumber]
+        const randomnumber = Math.floor(Math.random() * chars.length);
+        key += chars[randomnumber]
     }
     let shaObj = new jsSHA("SHA-1", "TEXT");
     shaObj.update(key);
@@ -45,45 +46,45 @@ function keyGen() {
 }
 
 function getData(geturl) {
-    let jsondata = null;
+    let jsonData = null;
     $.ajax({
         type: "GET",
         async: false,
         url: geturl,
         success: function (data) {
-            jsondata = data;
+            jsonData = data;
         }
     });
-    return jsondata;
+    return jsonData;
 }
 
 function handleData(data) {
-    let splitdata = data.split("\n");
-    let jsondata = [];
-    for (i = 0; i < splitdata.length; i++) {
-        let hash = splitdata[i].slice(0,35);
-        let count = splitdata[i].slice(36);
-        jsondata.push({hash : hash, count : count});
+    let splitData = data.split("\n");
+    let jsonData = [];
+    for (i = 0; i < splitData.length; i++) {
+        let hash = splitData[i].slice(0,35);
+        let count = splitData[i].slice(36);
+        jsonData.push({hash : hash, count : count});
     }
-    return jsondata;
+    return jsonData;
 }
 
-function checkformatch(jsondata, key) {
-    let checkkey = key["hashkey"].slice(5);
-    let retvalue = false;
-    for (i = 0; i < jsondata.length; i++) {
-        var obj = jsondata[i];
-        if (obj.hash === checkkey.toUpperCase()) {
-            retvalue = false;
+function checkformatch(jsonData, key) {
+    let checkKey = key["hashkey"].slice(5);
+    let returnValue = false;
+    for (i = 0; i < jsonData.length; i++) {
+        var obj = jsonData[i];
+        if (obj.hash === checkKey.toUpperCase()) {
+            returnValue = false;
             console.log("MATCH FOUND AT " + i + "\n occured " + obj.count + " times");
         } else {
-            retvalue = true;
+            returnValue = true;
         }
     }
-    return retvalue;
+    return returnValue;
 }
 
 function copyToClip() {
-    var pw = document.getElementById("label1").innerText;
+    const pw = document.getElementById("label1").innerText;
     window.prompt("Copy to clipboard: Ctrl+C", pw);
 }
