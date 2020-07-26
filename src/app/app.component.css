@@ -1,0 +1,34 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.header {
+  background-color: black;
+}
+
+.header-font-without-margin {
+  font-family: monospace;
+  color: white;
+  display: inline-block;
+}
+
+.header-font-with-margin {
+  font-family: monospace;
+  color: white;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+.header-blink {
+  display: inline-block;
+  color: white;
+  animation: blink 1s steps(3, start) infinite;
+}
+
+
