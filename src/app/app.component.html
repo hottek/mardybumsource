@@ -1,0 +1,15 @@
+<!-- Header -->
+<mat-toolbar class="header" id="toolbar">
+  <span class="header-font-without-margin">{{appCodeName}}@hottek></span>
+  <span class="header-font-without-margin" id="console-input"></span>
+  <span class="header-blink" id="blink-char" *ngIf="consoleOutput.length < 1">&#9613;</span>
+  <span class="spacer"></span>
+  <span class="header-font-with-margin cursor" (click)="processConsoleInput('about')">About</span>
+  <span class="header-font-without-margin"><a href="https://github.com/hottek">Github</a></span>
+</mat-toolbar>
+<mat-toolbar class="header" *ngFor="let consoleRow of consoleOutput">
+  <span class="header-font-without-margin" *ngIf="consoleRow.withPrefix">{{appCodeName}}@hottek></span>
+  <span class="header-font-without-margin" id="{{consoleRow.id}}">{{consoleRow.consoleOutput}}</span>
+  <span class="header-blink" *ngIf="consoleRow.isBottomRow">&#9613;</span>
+  <span class="spacer"></span>
+</mat-toolbar>
