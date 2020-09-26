@@ -31,4 +31,11 @@
   animation: blink 1s steps(3, start) infinite;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
+.cursor {
+  cursor: pointer;
+}
