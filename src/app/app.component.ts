@@ -45,6 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
       const key = document.createTextNode(e.key);
       span.appendChild(key);
     } else if (AppComponent.isBackspaceKey(e.key)) {
+      e.preventDefault();
       span.lastChild.remove();
     } else if (AppComponent.isEnterKey(e.key)) {
       this.processConsoleInput(span.innerText);
