@@ -1,13 +1,13 @@
-FROM node:10-alpine as build-step
-
-RUN mkdir -p /app
+FROM node:12.2.0
 
 WORKDIR /app
 
-COPY package.json /app
+ENV PATH /app/node_modules/.bin:$PATH
 
+COPY package.json /app/package.json
 RUN npm install
+RUN npm install -g @angular/cli@7.3.9
 
 COPY . /app
 
-RUN npm run build --prod
+CMD ng serve --host 0.0.0.0 --disable-host-check
