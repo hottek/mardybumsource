@@ -1,0 +1,10 @@
+mardybumsource:
+  build: .
+  ports:
+     - "4201:4200"
+  volumes:
+     - .:/app
+     - /app/node_modules
+  environment:
+    - "VIRTUAL_HOST=me.hottek.dev"
+    - "LETSENCRYPT_HOST=me.hottek.dev"
